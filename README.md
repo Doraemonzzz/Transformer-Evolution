@@ -29,7 +29,7 @@ pip install setuptools==52.0.0
 
 ## 更新日志
 
-- 2022/7/3: 初始化仓库，完成fairseq代码迁移；
+- 2022/7/3: 初始化仓库，完成fairseq代码迁移，完成lm, mlm测试；
 
 
 
