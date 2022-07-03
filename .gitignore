@@ -138,3 +138,6 @@ experimental/*
 
 # Weights and Biases logs
 wandb/
+
+# test
+**/test/**

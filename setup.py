@@ -40,7 +40,7 @@ def write_version_py():
 version = write_version_py()
 
 
-with open("README.md") as f:
+with open("README.md", encoding="utf-8") as f:
     readme = f.read()
 
 

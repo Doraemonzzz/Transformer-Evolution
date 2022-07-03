@@ -50,6 +50,14 @@ pip install setuptools==52.0.0
 
 masked_lm.py是bert
 
+报错：
+
+```
+    ret = torch._C._nn.nll_loss(input, target, weight, _Reduction.get_enum(reduction), ignore_index)
+RuntimeError: Expected object of scalar type Long but got scalar type Int for argument #2 'target' in call to _thnn_nll_loss_forward
+
+```
+
 
 
 ## 参考资料

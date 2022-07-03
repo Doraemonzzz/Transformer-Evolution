@@ -582,8 +582,6 @@ def roberta_prenorm_architecture(args):
 def roberta_base_architecture(args):
     base_architecture(args)
 
-
-
 @register_model_architecture("roberta", "roberta_large")
 def roberta_large_architecture(args):
     args.encoder_layers = getattr(args, "encoder_layers", 24)
@@ -600,8 +598,10 @@ def xlm_architecture(args):
     args.encoder_attention_heads = getattr(args, "encoder_attention_heads", 16)
     base_architecture(args)
 
-##### add
-@register_model_architecture("roberta", "roberta_base_single_head")
-def roberta_base_architecture(args):
+@register_model_architecture("roberta", "roberta_tiny")
+def roberta_tiny_architecture(args):
     base_architecture(args)
-    args.encoder_attention_heads = 1
+    args.encoder_layers = 6
+    args.encoder_embed_dim = 512
+    args.encoder_ffn_embed_dim = 2048
+    args.encoder_attention_heads = 8

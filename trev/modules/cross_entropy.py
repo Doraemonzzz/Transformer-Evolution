@@ -16,7 +16,7 @@ def _cross_entropy_pytorch(logits, target, ignore_index=None, reduction="mean"):
     lprobs = F.log_softmax(logits, dim=-1, dtype=torch.float32)
     return F.nll_loss(
         lprobs,
-        target,
+        target.long(),
         ignore_index=ignore_index,
         reduction=reduction,
     )

@@ -8,7 +8,7 @@ import torch
 import sys
 from trev import utils
 from trev.distributed import utils as distributed_utils
-from trev.modules.layer_norm import LayerNorm
+from trev.modules.norm.layer_norm import LayerNorm
 
 
 class BaseLayer(nn.Module):
