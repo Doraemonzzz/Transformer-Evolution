@@ -1,0 +1,3 @@
+einops
+torch
+setuptools==52.0.0
