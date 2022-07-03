@@ -8,7 +8,7 @@ from trev.models import (
     register_model,
     register_model_architecture,
 )
-from trev.models.transformer import TransformerDecoder
+from trev.models.transformer.transformer import TransformerDecoder
 from trev.models.roberta import model as roberta
 
 logger = logging.getLogger(__name__)

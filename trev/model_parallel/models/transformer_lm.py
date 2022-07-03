@@ -6,7 +6,7 @@
 import torch.nn as nn
 from trev.model_parallel.models.transformer import ModelParallelTransformerDecoder
 from trev.models import register_model, register_model_architecture
-from trev.models.transformer_lm import TransformerLanguageModel
+from trev.models.transformer_lm.transformer_lm import TransformerLanguageModel
 
 
 try:

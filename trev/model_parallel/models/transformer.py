@@ -11,7 +11,7 @@ from trev.model_parallel.modules import (
     ModelParallelTransformerEncoderLayer,
 )
 from trev.models import register_model
-from trev.models.transformer import (
+from trev.models.transformer.transformer import (
     TransformerDecoder,
     TransformerEncoder,
     TransformerModel,

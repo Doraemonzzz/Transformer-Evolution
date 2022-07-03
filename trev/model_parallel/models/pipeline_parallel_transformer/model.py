@@ -26,7 +26,7 @@ from trev.models import (
     register_model_architecture,
 )
 from trev.models.trev_encoder import EncoderOut
-from trev.models.transformer import (
+from trev.models.transformer.transformer import (
     base_architecture,
     transformer_iwslt_de_en,
     transformer_wmt_en_de_big,

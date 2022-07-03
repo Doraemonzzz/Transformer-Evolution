@@ -93,7 +93,8 @@ for w in 64; do
                     # for ARCH in roberta_glu_pure_rms_urpe_1d3_relu2 roberta_glu_small_pure_rms_urpe_1d3_relu2 
                     # for ARCH in roberta_glu_pure_rms_urpe_1d3_linear_chunk roberta_glu_small_pure_rms_urpe_1d3_linear_chunk
                     # for ARCH in roberta_glu_pure_rms_urpe_1d3_linear_chunk_32 roberta_glu_small_pure_rms_urpe_1d3_linear_chunk_32 roberta_glu_pure_rms_urpe_1d3_linear_chunk_16 roberta_glu_small_pure_rms_urpe_1d3_linear_chunk_16
-                    for ARCH in roberta_glu_pure_rms_urpe_1d3_linear_chunk_32
+                    # for ARCH in roberta_glu_pure_rms_urpe_1d3_linear_chunk_32
+                    for ARCH in roberta_base
                     do
                     # ARCH=roberta_norm_type_${i}_${j}_w${w}_h${h}_p${p}
                     # ARCH=roberta_norm_type_stand_act2${i}

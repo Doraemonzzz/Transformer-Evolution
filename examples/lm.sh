@@ -139,7 +139,8 @@ LR=1.0
 
 for j in 4
 do
-    for ARCH in norm_glu_lm_base_pure_rms_urpe_1d3_linear_chunk_32    
+    # for ARCH in norm_glu_lm_base_pure_rms_urpe_1d3_linear_chunk_32   
+    for ARCH in transformer_lm_base
     do
       # ARCH=roberta_orpe_${i}_${j}
       # ARCH=1+elu_${i}_${j}_wiki_base

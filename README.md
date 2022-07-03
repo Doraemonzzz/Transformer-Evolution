@@ -46,6 +46,12 @@ pip install setuptools==52.0.0
 
 
 
+## 备注
+
+masked_lm.py是bert
+
+
+
 ## 参考资料
 
 - [https://github.com/lucidrains/vit-pytorch/blob/main/vit_pytorch](https://github.com/lucidrains/vit-pytorch/blob/main/vit_pytorch)

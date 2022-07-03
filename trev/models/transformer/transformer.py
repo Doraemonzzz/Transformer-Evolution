@@ -27,46 +27,6 @@ from trev.modules import (
     SinusoidalPositionalEmbedding,
     TransformerDecoderLayer,
     TransformerEncoderLayer,
-    # # rfa
-    # TransformerRfaDecoderLayer,
-    # TransformerRfaEncoderLayer,
-    # # debug
-    # TransformerRfaDecoderDebugLayer,
-    # performer
-    # PerformerEncoderLayer,
-    # PerformerDecoderLayer,
-    # sparse transformer
-    SparseTransformerEncoderLayer,
-    SparseTransformerDecoderLayer,
-    # head
-    # TransformerDecoderLayerPlus,
-    # TransformerEncoderLayerPlus,
-    # cos
-    # TransformerCosEncoderLayer,
-    # TransformerCosDecoderLayer,
-
-    # FLASH
-
-    # FLASHLINEAR
-    # FlashLinearEncoderLayer,
-    # FlashLinearDecoderLayer,
-    # ReLA 
-    # ReLAEncoderLayer,
-    # ReLADecoderLayer,
-    # LinearKernelAttention with rope
-    # LinearKernelAttentionEncoderLayer,
-    # LinearKernelAttentionDecoderLayer,
-    # NormAttention
-    # NormAttentionEncoderLayer,
-    # NormAttentionDecoderLayer,
-    # NormMixAttention
-    # NormMixAttentionEncoderLayer,
-    # NormMixAttentionDecoderLayer,
-    # LSAttention
-    # LSAttentionEncoderLayer,
-    # LSAttentionDecoderLayer,
-    # LinearVanilla
-    # LinearCombinationEncoderLayer,
 )
 
 from trev.modules.checkpoint_activations import checkpoint_wrapper
@@ -96,7 +56,7 @@ class TransformerModel(TrevEncoderDecoderModel):
     command-line arguments:
 
     .. argparse::
-        :ref: trev.models.transformer_parser
+        :ref: trev.models.transformer_lm.transformer_parser
         :prog:
     """
 
@@ -408,7 +368,6 @@ class TransformerEncoder(TrevEncoder):
 
         self.embed_scale = 1.0 if args.no_scale_embedding else math.sqrt(embed_dim)
 
-        # print(f"args.encoder_learned_pos {args.encoder_learned_pos}")
         args.no_encoder_token_positional_embeddings = getattr(args, "no_encoder_token_positional_embeddings", False) or args.no_token_positional_embeddings
         self.embed_positions = (
             PositionalEmbedding(
@@ -505,9 +464,6 @@ class TransformerEncoder(TrevEncoder):
         # embed tokens and positions
         if token_embedding is None:
             token_embedding = self.embed_tokens(src_tokens)
-        # print(torch.norm(self.embed_tokens.weight.data))
-        # print(token_embedding)
-        # print(torch.norm(token_embedding))
         x = embed = self.embed_scale * token_embedding
         if self.embed_positions is not None:
             x = embed + self.embed_positions(src_tokens)
@@ -1002,7 +958,6 @@ class TransformerDecoder(TrevIncrementalDecoder):
                 - a dictionary with any model-specific outputs
         """
         bs, slen = prev_output_tokens.size()
-        #print('transformer decoder input:', prev_output_tokens.shape)
         if alignment_layer is None:
             alignment_layer = self.num_layers - 1
 
@@ -1030,32 +985,24 @@ class TransformerDecoder(TrevIncrementalDecoder):
         
         # embed tokens and positions
         x = self.embed_scale * self.embed_tokens(prev_output_tokens)
-        # print(x)
-        #print(x.shape)
 
         if self.quant_noise is not None:
             x = self.quant_noise(x)
-        #print(x.shape)
 
         if self.project_in_dim is not None:
             x = self.project_in_dim(x)
-        #print(x.shape)
 
         if positions is not None:
             x += positions
-        #print(x.shape)
 
         if self.layernorm_embedding is not None:
             x = self.layernorm_embedding(x)
-        #print(x.shape)
 
         x = self.dropout_module(x)
-        #print(x.shape)
 
 
         # B x T x C -> T x B x C
         x = x.transpose(0, 1)
-        #print(x.shape)
 
         self_attn_padding_mask: Optional[Tensor] = None
         if self.cross_self_attention or prev_output_tokens.eq(self.padding_idx).any():
@@ -1070,7 +1017,6 @@ class TransformerDecoder(TrevIncrementalDecoder):
             else:
                 self_attn_mask = None
 
-            #print(idx, 'x: ', x.shape)
             x, layer_attn, _ = layer(
                 x,
                 enc,
@@ -1081,8 +1027,6 @@ class TransformerDecoder(TrevIncrementalDecoder):
                 need_attn=bool((idx == alignment_layer)),
                 need_head_weights=bool((idx == alignment_layer)),
             )
-
-            #print(idx, 'x after layer:', x.shape)
 
             inner_states.append(x)
             if layer_attn is not None and idx == alignment_layer:
