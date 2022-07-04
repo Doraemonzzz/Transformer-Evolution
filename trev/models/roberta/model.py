@@ -33,7 +33,6 @@ def small_init_weights(module):
         module.weight.data.normal_(mean=0.0, std=0.02)        
 
     if isinstance(module, (nn.Embedding)):
-        # nn.init.uniform_(module.weight, a=-1e-4, b=1e-4) # SmallInit(Emb)
         print("Embdding norm before")
         print(torch.norm(module.weight.data))
         module.weight.data.normal_(mean=0.0, std=1e-5)
@@ -60,13 +59,12 @@ class RobertaModel(TrevEncoderModel):
 
         # We follow BERT's random weight initialization
         init_method = getattr(args, 'init_method', "default")
-        print(f"init_method {init_method}")
+        logging.info(f"init_method {init_method}")
         if init_method == "default":
-            print("default init")
+            logging.info("default init")
             self.apply(init_bert_params)
         else:
-            print("small init")
-            print(init_method)
+            logging.info("small init")
             self.apply(small_init_weights)
 
         self.classification_heads = nn.ModuleDict()
@@ -598,6 +596,7 @@ def xlm_architecture(args):
     args.encoder_attention_heads = getattr(args, "encoder_attention_heads", 16)
     base_architecture(args)
 
+##### tiny architecture
 @register_model_architecture("roberta", "roberta_tiny")
 def roberta_tiny_architecture(args):
     base_architecture(args)

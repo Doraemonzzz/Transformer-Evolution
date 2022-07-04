@@ -40,11 +40,11 @@ pip install setuptools==52.0.0
 
 2022/7/4~2022/7/11规划：
 
-- 完成mlm测试；
-- 完成char level lm测试；
-- 完成vit迁移（基于fairseq或者启一个子项目）；
-- 完成数据预处理测试；
-- 完成fairseq版本和trev版本性能基本对齐；
+- [x] 完成mlm测试；
+- [ ] 完成char level lm测试；
+- [ ] 完成vit迁移（基于fairseq或者启一个子项目）；
+- [ ] 完成数据预处理测试；
+- [ ] 完成fairseq版本和trev版本性能基本对齐；
 
 
 

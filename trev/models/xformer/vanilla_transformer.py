@@ -249,9 +249,7 @@ class VanillaTransformerEncoder(TrevEncoder):
 
         # encoder layers
         for layer in self.layers:
-            x = layer(
-                x, encoder_padding_mask=encoder_padding_mask if has_pads else None
-            )
+            x = layer(x)
             if return_all_hiddens:
                 assert encoder_states is not None
                 encoder_states.append(x)
