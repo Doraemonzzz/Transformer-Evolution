@@ -55,7 +55,7 @@ pip install -e .
 
 - [x] 完成mlm测试；
 - [x] 完成char level lm测试；
-- [ ] 完成vit迁移（基于fairseq或者启一个子项目）；
+- [x] 完成vit迁移（基于fairseq或者启一个子项目）；
 - [ ] 完成数据预处理测试；
   - [x] enwik8预处理；
 - [ ] 完成fairseq版本和trev版本性能基本对齐；
@@ -89,6 +89,8 @@ RuntimeError: Expected object of scalar type Long but got scalar type Int for ar
 - [https://github.com/lucidrains/vit-pytorch/blob/main/vit_pytorch](https://github.com/lucidrains/vit-pytorch/blob/main/vit_pytorch)
 - [https://github.com/lucidrains/x-transformers](https://github.com/lucidrains/x-transformers)
 - [https://github.com/facebookresearch/fairseq](https://github.com/facebookresearch/fairseq)
+- [https://github.com/OpenNLPLab/Vicinity-Vision-Transformer](https://github.com/OpenNLPLab/Vicinity-Vision-Transformer)
+- [https://github.com/whai362/PVT](https://github.com/whai362/PVT)
 
 
 

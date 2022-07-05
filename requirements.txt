@@ -1,2 +1,4 @@
 einops
 torch
+timm
+mmcv

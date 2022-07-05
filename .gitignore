@@ -141,3 +141,5 @@ wandb/
 
 # test
 **/test/**
+
+**/mcloader/**
