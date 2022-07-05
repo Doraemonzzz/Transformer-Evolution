@@ -2,6 +2,8 @@
 #
 # This source code is licensed under the MIT license found in the
 # LICENSE file in the root directory of this source tree.
+"""Forked from https://github.com/pytorch/fairseq/blob/master/examples/truncated_bptt/truncated_bptt_lm_task.py
+"""
 
 import logging
 import os
@@ -252,17 +254,14 @@ class TruncatedBPTTDataset(torch.utils.data.Dataset):
         """
         With a 16 item dataset, bsz_per_shard=2 and num_shards=3,
         *indices* might look like:
-
             indices = [[0, 1],
                        [2, 3],
                        [4, 5],
                        [6, 7],
                        [8, 9],
                        [10, 11]]
-
         The size of the TruncatedBPTTDataset instance will be 2,
         and shard 1 will see items:
-
             [(0, [data[4], data[6]]),
              (1, [data[5], data[7]])]
         """

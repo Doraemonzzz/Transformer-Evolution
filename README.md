@@ -18,11 +18,23 @@
 
 ## 安装
 
+torch：
+
 ```
 # pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 pip install torch==1.8.1+cu101 torchvision==0.9.1+cu101 torchaudio==0.8.1 -f https://download.pytorch.org/whl/torch_stable.html
+```
 
+在windows环境，可以能需要如下版本限制：
+
+```
 pip install setuptools==52.0.0
+```
+
+安装：
+
+```
+pip install -e .
 ```
 
 
@@ -44,7 +56,10 @@ pip install setuptools==52.0.0
 - [ ] 完成char level lm测试；
 - [ ] 完成vit迁移（基于fairseq或者启一个子项目）；
 - [ ] 完成数据预处理测试；
+  - [x] enwik8预处理；
 - [ ] 完成fairseq版本和trev版本性能基本对齐；
+
+
 
 
 
