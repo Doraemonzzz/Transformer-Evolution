@@ -14,8 +14,6 @@ from .gpt2_bpe_utils import get_encoder
 
 DEFAULT_ENCODER_JSON = "https://dl.fbaipublicfiles.com/trev/gpt2_bpe/encoder.json"
 DEFAULT_VOCAB_BPE = "https://dl.fbaipublicfiles.com/trev/gpt2_bpe/vocab.bpe"
-DEFAULT_ENCODER_JSON = "/mnt/lustre/qinzhen/.cache/torch/pytorch_trev/encoder.json"
-DEFAULT_VOCAB_BPE = "/mnt/lustre/qinzhen/.cache/torch/pytorch_trev/vocab.bpe"
 
 @dataclass
 class GPT2BPEConfig(TrevDataclass):

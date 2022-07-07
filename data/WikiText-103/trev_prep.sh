@@ -1,7 +1,7 @@
 # wget https://s3.amazonaws.com/research.metamind.io/wikitext/wikitext-103-raw-v1.zip
 unzip wikitext-103-raw-v1.zip
 
-PATH_TO_SCRIPT=/home/SENSETIME/qinzhen/Desktop/Transformer-Evolution/data/WikiText-103
+PATH_TO_SCRIPT=.
 mkdir -p gpt2_bpe
 wget -O gpt2_bpe/encoder.json https://dl.fbaipublicfiles.com/fairseq/gpt2_bpe/encoder.json
 wget -O gpt2_bpe/vocab.bpe https://dl.fbaipublicfiles.com/fairseq/gpt2_bpe/vocab.bpe
