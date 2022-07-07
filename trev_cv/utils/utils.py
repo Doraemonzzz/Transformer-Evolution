@@ -13,7 +13,7 @@ import datetime
 
 import torch
 import torch.distributed as dist
-import mmcv
+# import mmcv
 import numpy as np
 import socket
 
@@ -266,6 +266,7 @@ def init_distributed_mode(args):
     print(f"rank {os.environ['RANK']}")
     print(f"local_rank {os.environ['LOCAL_RANK']}")
     print('| distributed init (rank {})'.format(local_rank), flush=True)
+    print(f"addr: {host_addr_full}")
     
     if 'SLURM_PROCID' in os.environ:
         rank = int(os.environ['SLURM_PROCID'])
@@ -278,46 +279,8 @@ def init_distributed_mode(args):
     torch.cuda.set_device(local_rank)
     args.dist_backend = "nccl"
     host_addr_full = 'tcp://' + addr + ':' + port
-    print(f"addr: {host_addr_full}")
+    
     torch.distributed.init_process_group(backend=args.dist_backend, init_method=host_addr_full,
                                          world_size=args.world_size, rank=args.rank)
     torch.distributed.barrier()
     setup_for_distributed(args.rank == 0)
-
-
-# def init_distributed_mode(args):
-#     if 'RANK' in os.environ and 'WORLD_SIZE' in os.environ:
-#         args.rank = int(os.environ["RANK"])
-#         args.world_size = int(os.environ['WORLD_SIZE'])
-#         args.gpu = int(os.environ['LOCAL_RANK'])
-#     elif 'SLURM_PROCID' in os.environ:
-#         args.rank = int(os.environ['SLURM_PROCID'])
-#         args.gpu = args.rank % torch.cuda.device_count()
-#     else:
-#         print('Not using distributed mode')
-#         args.distributed = False
-#         return
-
-#     args.distributed = True
-#     print(args)
-
-#     torch.cuda.set_device(args.gpu)
-#     args.dist_backend = 'nccl'
-#     print('| distributed init (rank {}): {}'.format(
-#         args.rank, args.dist_url), flush=True)
-#     print(args.dist_backend)
-#     print(args.dist_url)
-#     print(args.world_size)
-#     print(args.rank)
-#     torch.distributed.init_process_group(backend=args.dist_backend, init_method=args.dist_url,
-#                                          world_size=args.world_size, rank=args.rank)
-#     torch.distributed.barrier()
-#     setup_for_distributed(args.rank == 0)
-
-
-def update_from_config(args):
-    cfg = mmcv.Config.fromfile(args.config)
-    for _, cfg_item in cfg._cfg_dict.items():
-        for k, v in cfg_item.items():
-            setattr(args, k, v)
-    return args

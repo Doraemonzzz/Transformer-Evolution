@@ -51,9 +51,6 @@ class INatDataset(ImageFolder):
             target_current_true = targeter[categors[category]]
             self.samples.append((path_current, target_current_true))
 
-    # __getitem__ and __len__ inherited from ImageFolder
-
-
 def build_dataset(is_train, args):
     transform = build_transform(is_train, args)
 

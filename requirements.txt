@@ -1,4 +1,3 @@
 einops
 torch
 timm
-mmcv

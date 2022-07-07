@@ -20,13 +20,13 @@ from timm.optim import create_optimizer
 from timm.utils import NativeScaler, get_state_dict, ModelEma
 from collections import OrderedDict
 
-from datasets import build_dataset
-from engine import train_one_epoch, evaluate
-from losses import DistillationLoss
-from samplers import RASampler
+from utils.datasets import build_dataset
+from utils.engine import train_one_epoch, evaluate
+from utils.losses import DistillationLoss
+from utils.samplers import RASampler
 
-import utils
-import pvt
+import utils.utils
+import model.vit
 
 def get_args_parser():
     parser = argparse.ArgumentParser('Trev_cv training and evaluation script', add_help=False)
@@ -234,9 +234,6 @@ def main(args):
         args.model,
         pretrained=False,
         num_classes=args.nb_classes,
-        drop_rate=args.drop,
-        drop_path_rate=args.drop_path,
-        drop_block_rate=None,
     )
     print(model)
 
@@ -393,9 +390,8 @@ def main(args):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser('DeiT training and evaluation script', parents=[get_args_parser()])
+    parser = argparse.ArgumentParser('Trev training and evaluation script', parents=[get_args_parser()])
     args = parser.parse_args()
-    args = utils.update_from_config(args)
     
     os.environ['OMP_NUM_THREADS'] = '16'
     os.environ['OMP_DYNAMIC'] = 'False'

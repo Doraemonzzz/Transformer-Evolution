@@ -5,39 +5,15 @@ Train and eval functions used in main.py
 """
 import math
 import sys
-from typing import Iterable, Optional
-
+import os
 import torch
 
+from typing import Iterable, Optional
 from timm.data import Mixup
 from timm.utils import accuracy, ModelEma
 
-from losses import DistillationLoss
+from .losses import DistillationLoss
 import utils
-import os
-import pdb
-import os
-
-# from gpu_mem_track import MemTracker
-import inspect
-# frame = inspect.currentframe()     
-# gpu_tracker = MemTracker(frame) 
-    
-
-
-class ForkedPdb(pdb.Pdb):
-    """A Pdb subclass that may be used
-    from a forked multiprocessing child
-
-    """
-    def interaction(self, *args, **kwargs):
-        _stdin = sys.stdin
-        try:
-            sys.stdin = open('/dev/stdin')
-            pdb.Pdb.interaction(self, *args, **kwargs)
-        finally:
-            sys.stdin = _stdin
-
 
 def train_one_epoch(model: torch.nn.Module, criterion: DistillationLoss,
                     data_loader: Iterable, optimizer: torch.optim.Optimizer,
@@ -53,10 +29,6 @@ def train_one_epoch(model: torch.nn.Module, criterion: DistillationLoss,
     header = 'Epoch: [{}]'.format(epoch)
     print_freq = 10
 
-    # ForkedPdb()
-
-
-    # try:
     for samples, targets in metric_logger.log_every(data_loader, print_freq, header):
         samples = samples.to(device, non_blocking=True)
         targets = targets.to(device, non_blocking=True)
@@ -64,21 +36,10 @@ def train_one_epoch(model: torch.nn.Module, criterion: DistillationLoss,
         if mixup_fn is not None:
             samples, targets = mixup_fn(samples, targets)
 
-        # with torch.cuda.amp.autocast():
-        #     outputs = model(samples)
-        #     loss = criterion(samples, outputs, targets)
         with torch.cuda.amp.autocast(enabled=not fp32):
             outputs = model(samples)
             outputs = outputs.float() # back to fp32
             loss = criterion(samples, outputs, targets)
-        
-        # if torch.isnan(loss):
-        #     print('loss is nan!!!...')
-
-        #     torch.distributed.barrier()
-        #     continue
-
-
 
         loss_value = loss.item()
 
@@ -106,9 +67,6 @@ def train_one_epoch(model: torch.nn.Module, criterion: DistillationLoss,
     # gather the stats from all processes
     metric_logger.synchronize_between_processes()
     print("Averaged stats:", metric_logger)
-    # except:
-        # ForkedPdb().set_trace()
-
 
     return {k: meter.global_avg for k, meter in metric_logger.meters.items()}
 
