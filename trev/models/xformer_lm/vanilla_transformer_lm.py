@@ -94,3 +94,9 @@ class VanillaTransformerLanguageModel(TransformerLanguageModel):
 @register_model_architecture("vanilla_transformer", "vanilla_transformer_lm")
 def vanilla_transformer_lm(args):
     base_lm_architecture(args)
+
+##### norm test
+@register_model_architecture("vanilla_transformer", "vanilla_transformer_lm_rmsnorm")
+def vanilla_transformer_lm_rmsnorm(args):
+    base_lm_architecture(args)
+    args.norm_type = "rmsnorm"

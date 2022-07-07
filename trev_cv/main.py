@@ -26,7 +26,7 @@ from utils.losses import DistillationLoss
 from utils.samplers import RASampler
 
 import utils.utils
-import model.vit
+import model.xvit
 
 def get_args_parser():
     parser = argparse.ArgumentParser('Trev_cv training and evaluation script', add_help=False)
@@ -318,12 +318,6 @@ def main(args):
     max_accuracy = 0.0
 
     for epoch in range(args.start_epoch, args.epochs):
-        # if args.fp32_resume and epoch > args.start_epoch + 1:
-        #     args.fp32_resume = False
-
-        # -------------------fp16 or not---
-        # args.fp32_resume = True
-        #---------------------------
         print('fp 32 or not:', args.fp32_resume)
 
         loss_scaler._scaler = torch.cuda.amp.GradScaler(enabled=not args.fp32_resume)

@@ -55,6 +55,7 @@ class VanillaTransformerEncoder(TrevEncoder):
     def __init__(self, args, dictionary, embed_tokens):
         self.args = args
         super().__init__(dictionary)
+        logging.info("Encoder")
         self.register_buffer("version", torch.Tensor([3]))
 
         self.dropout_module = TrevDropout(
@@ -377,6 +378,7 @@ class VanillaTransformerDecoder(TrevIncrementalDecoder):
     ):
         self.args = args
         super().__init__(dictionary)
+        logging.info("Decoder")
         self.register_buffer("version", torch.Tensor([3]))
         self._future_mask = torch.empty(0)
         self.pad_idx = embed_tokens.padding_idx
@@ -455,7 +457,7 @@ class VanillaTransformerDecoder(TrevIncrementalDecoder):
             args, "no_decoder_final_norm", False
         ):
             final_layer_norm_type = getattr(args, 'final_layernorm', 'layernorm')
-            logging.info(f"Encoder final layernorm type: {final_layer_norm_type}")
+            logging.info(f"Decoder final layernorm type: {final_layer_norm_type}")
             self.layer_norm = get_norm(final_layer_norm_type, embed_dim)
         else:
             self.layer_norm = None

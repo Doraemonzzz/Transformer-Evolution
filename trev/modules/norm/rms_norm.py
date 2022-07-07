@@ -21,7 +21,6 @@ class SimpleRMSNorm(nn.Module):
     def forward(self, x):
         norm_x = x.norm(2, dim=-1, keepdim=True)
         d_x = self.d
-
         rms_x = norm_x * d_x ** (-1. / 2)
         x_normed = x / (rms_x + self.eps)
 

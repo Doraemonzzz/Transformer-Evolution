@@ -3,16 +3,17 @@
 # This source code is licensed under the MIT license found in the
 # LICENSE file in the root directory of this source tree.
 
-from typing import Dict, List, Optional
-
 import torch
 import torch.nn as nn
+import logging
+
+from torch import Tensor
+from typing import Dict, List, Optional
+
 from trev import utils
 from trev.modules.trev_dropout import TrevDropout
 from trev.modules.quant_noise import quant_noise
 from trev.modules import VanillaFeedForward
-from torch import Tensor
-
 from .vanilla_attention import VanillaAttention
 from ..utils import get_norm
 
@@ -37,7 +38,6 @@ class VanillaTransformerEncoderLayer(nn.Module):
         self.embed_dim = args.encoder_embed_dim
         self.attn = self.build_self_attention(self.embed_dim, args)
         self.norm_type = getattr(args, "norm_type", "layernorm")
-        # self.attn_norm = nn.LayerNorm(self.embed_dim)
         self.attn_norm = get_norm(self.norm_type, self.embed_dim)
         self.ffn = VanillaFeedForward(
             embed_dim=self.embed_dim,
@@ -53,6 +53,8 @@ class VanillaTransformerEncoderLayer(nn.Module):
             self.forward = self.forward_pre_norm
         else:
             self.forward = self.forward_post_norm
+
+        logging.info(f"norm_type {self.norm_type}")
 
     def build_self_attention(self, embed_dim, args):
         return VanillaAttention(
@@ -136,6 +138,8 @@ class VanillaTransformerDecoderLayer(nn.Module):
             self.forward = self.forward_pre_norm
         else:
             self.forward = self.forward_post_norm
+
+        logging.info(f"norm_type {self.norm_type}")
 
     def build_self_attention(
         self, embed_dim, args,

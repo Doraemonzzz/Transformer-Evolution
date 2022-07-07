@@ -1,4 +1,3 @@
-# for flash
 import torch
 from torch import nn
 

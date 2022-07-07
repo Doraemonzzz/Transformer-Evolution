@@ -59,6 +59,7 @@ pip install -e .
 - [x] 完成数据预处理测试；
   - [x] enwik8预处理；
   - [x] Wikitext103预处理；
+- [x] 完成代码梳理；
 - [ ] 完成fairseq版本和trev版本性能基本对齐；
 
 
