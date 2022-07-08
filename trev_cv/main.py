@@ -289,7 +289,7 @@ def main(args):
         criterion, None, 'none', 0, 0
     )
 
-    if args.resume:
+    if args.resume and os.path.exists(args.resume):
         if args.resume.startswith('https'):
             checkpoint = torch.hub.load_state_dict_from_url(
                 args.resume, map_location='cpu', check_hash=True)
