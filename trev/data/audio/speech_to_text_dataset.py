@@ -26,7 +26,7 @@ from trev.data.audio.feature_transforms import CompositeAudioFeatureTransform
 logger = logging.getLogger(__name__)
 
 
-class S2TDataConfig(object):
+class S2TDatacosnfig(object):
     """Wrapper class for data config YAML"""
 
     def __init__(self, yaml_path):
@@ -220,7 +220,7 @@ class SpeechToTextDataset(TrevDataset):
         self,
         split: str,
         is_train_split: bool,
-        data_cfg: S2TDataConfig,
+        data_cfg: S2TDatacosnfig,
         audio_paths: List[str],
         n_frames: List[int],
         src_texts: Optional[List[str]] = None,
@@ -416,7 +416,7 @@ class SpeechToTextDatasetCreator(object):
         split_name: str,
         is_train_split,
         samples: List[List[Dict]],
-        data_cfg: S2TDataConfig,
+        data_cfg: S2TDatacosnfig,
         tgt_dict,
         pre_tokenizer,
         bpe_tokenizer,
@@ -475,7 +475,7 @@ class SpeechToTextDatasetCreator(object):
     def from_tsv(
         cls,
         root: str,
-        data_cfg: S2TDataConfig,
+        data_cfg: S2TDatacosnfig,
         splits: str,
         tgt_dict,
         pre_tokenizer,

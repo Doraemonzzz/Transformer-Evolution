@@ -1,9 +1,9 @@
 import torch.nn.functional as F
 import torch.nn as nn
 import torch
-from taco.attention import *
-from taco.ffn import *
-from taco.norm import *
+from tacos.attention import *
+from tacos.ffn import *
+from tacos.norm import *
 
 NEG_INFINITY = float('-inf')
 POS_INFINITY = float('inf')

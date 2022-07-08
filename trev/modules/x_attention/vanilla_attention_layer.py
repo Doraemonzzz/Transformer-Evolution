@@ -63,6 +63,7 @@ class VanillaTransformerEncoderLayer(nn.Module):
             causal=False,
             dropout=args.attention_dropout,
             index=args.index,
+            init_method=getattr(args, "init_method", "default")
         )
 
     def upgrade_state_dict_named(self, state_dict, name):
@@ -150,6 +151,7 @@ class VanillaTransformerDecoderLayer(nn.Module):
             causal=True,
             dropout=args.attention_dropout,
             index=args.index,
+            init_method=getattr(args, "init_method", "default")
         )
 
     def forward_pre_norm(self, x, mask=None):

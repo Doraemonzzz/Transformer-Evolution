@@ -42,3 +42,9 @@ def get_norm(norm_type, embed_dim):
         return ScaleNorm(embed_dim)
     else:
         return nn.LayerNorm(embed_dim)
+
+def init_params(module, init_method="default"):
+    if init_method == "default":
+        if isinstance(module, nn.Linear):
+            nn.init.xavier_uniform_(module.weight)
+            nn.init.normal_(module.bias)
