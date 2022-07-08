@@ -259,14 +259,6 @@ def init_distributed_mode(args):
     os.environ['WORLD_SIZE'] = str(ntasks)
     os.environ['RANK'] = str(proc_id)
     os.environ['LOCAL_RANK'] = str(local_rank)
-    print(f"ip {get_ip()}")
-    print(f"MASTER_ADDR {addr}")
-    print(f"port {port}")
-    print(f"world_size {os.environ['WORLD_SIZE']}")
-    print(f"rank {os.environ['RANK']}")
-    print(f"local_rank {os.environ['LOCAL_RANK']}")
-    print('| distributed init (rank {})'.format(local_rank), flush=True)
-    print(f"addr: {host_addr_full}")
     
     if 'SLURM_PROCID' in os.environ:
         rank = int(os.environ['SLURM_PROCID'])
@@ -279,6 +271,14 @@ def init_distributed_mode(args):
     torch.cuda.set_device(local_rank)
     args.dist_backend = "nccl"
     host_addr_full = 'tcp://' + addr + ':' + port
+    print(f"ip {get_ip()}")
+    print(f"MASTER_ADDR {addr}")
+    print(f"port {port}")
+    print(f"world_size {os.environ['WORLD_SIZE']}")
+    print(f"rank {os.environ['RANK']}")
+    print(f"local_rank {os.environ['LOCAL_RANK']}")
+    print('| distributed init (rank {})'.format(local_rank), flush=True)
+    print(f"addr: {host_addr_full}")
     
     torch.distributed.init_process_group(backend=args.dist_backend, init_method=host_addr_full,
                                          world_size=args.world_size, rank=args.rank)
