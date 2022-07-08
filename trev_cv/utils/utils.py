@@ -8,14 +8,14 @@ Mostly copy-paste from torchvision references.
 import io
 import os
 import time
-from collections import defaultdict, deque
 import datetime
-
 import torch
 import torch.distributed as dist
-# import mmcv
 import numpy as np
 import socket
+import subprocess
+
+from collections import defaultdict, deque
 
 class SmoothedValue(object):
     """Track a series of values and provide access to smoothed values over a
