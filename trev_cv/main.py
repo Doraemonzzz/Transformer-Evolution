@@ -163,9 +163,9 @@ def get_args_parser():
 def main(args):
     utils.init_distributed_mode(args)
     print(args)
-
+    
+    output_dir = Path(args.output_dir)
     device = torch.device(args.device)
-
     # fix the seed for reproducibility
     seed = args.seed + utils.get_rank()
     torch.manual_seed(seed)
