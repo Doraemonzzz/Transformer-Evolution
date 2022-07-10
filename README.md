@@ -45,7 +45,15 @@ pip install -e .
   - [x] 初始化仓库，完成fairseq代码迁移；
   - [x] 完成fairseq版本lm, mlm测试；
   - [x] 完成trev版本lm测试；
-- 
+- 2022/7/4~2022/7/10：
+  - [x] 完成mlm测试；
+  - [x] 完成char level lm测试；
+  - [x] 完成vit迁移（基于fairseq或者启一个子项目）；
+  - [x] 完成数据预处理测试；
+    - [x] enwik8预处理；
+    - [x] Wikitext103预处理；
+  - [x] 完成代码梳理；
+  - [x] 完成fairseq版本和trev版本性能基本对齐；
 
 
 
@@ -53,22 +61,12 @@ pip install -e .
 
 2022/7/4~2022/7/11规划：
 
-- [x] 完成mlm测试；
-- [x] 完成char level lm测试；
-- [x] 完成vit迁移（基于fairseq或者启一个子项目）；
-- [x] 完成数据预处理测试；
-  - [x] enwik8预处理；
-  - [x] Wikitext103预处理；
-- [x] 完成代码梳理；
-- [ ] 完成fairseq版本和trev版本性能基本对齐；
-
-
-
-
-
-## 已完成
-
-- 
+- [ ] 尝试加入lra任务；
+- [ ] 完成Readme英文版；
+- [ ] 添加速度，内存测试；
+- [ ] 完成单头多头测试；
+- [ ] 完成norm测试；
+- [ ] 完成performer, linear transformer测试；
 
 
 
