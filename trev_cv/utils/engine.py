@@ -21,7 +21,8 @@ def train_one_epoch(model: torch.nn.Module, criterion: DistillationLoss,
                     model_ema: Optional[ModelEma] = None, mixup_fn: Optional[Mixup] = None,
                     set_training_mode=True,
                     fp32=False,
-                    dist=True):
+                    dist=True,
+                    test=False):
     
     model.train(set_training_mode)
     metric_logger = utils.MetricLogger(delimiter="  ")
@@ -63,6 +64,9 @@ def train_one_epoch(model: torch.nn.Module, criterion: DistillationLoss,
 
         if dist:
             torch.distributed.barrier()
+
+        if test:
+            break
     
     # gather the stats from all processes
     metric_logger.synchronize_between_processes()

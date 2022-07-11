@@ -96,7 +96,23 @@ def vanilla_transformer_lm(args):
     base_lm_architecture(args)
 
 ##### norm test
+@register_model_architecture("vanilla_transformer", "vanilla_transformer_lm_simplermsnorm")
+def vanilla_transformer_lm_simplermsnorm(args):
+    base_lm_architecture(args)
+    args.norm_type = "simplermsnorm"
+
 @register_model_architecture("vanilla_transformer", "vanilla_transformer_lm_rmsnorm")
 def vanilla_transformer_lm_rmsnorm(args):
     base_lm_architecture(args)
     args.norm_type = "rmsnorm"
+
+@register_model_architecture("vanilla_transformer", "vanilla_transformer_lm_gatedrmsnorm")
+def vanilla_transformer_lm_gatedrmsnorm(args):
+    base_lm_architecture(args)
+    args.norm_type = "gatedrmsnorm"
+
+@register_model_architecture("vanilla_transformer", "vanilla_transformer_lm_scalenorm")
+def vanilla_transformer_lm_scalenorm(args):
+    base_lm_architecture(args)
+    args.norm_type = "scalenorm"
+##### norm test

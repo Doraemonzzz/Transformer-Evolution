@@ -46,8 +46,8 @@ class Transformer(nn.Module):
         FeedForward = get_ffn(ffn_type)
         for _ in range(depth):
             self.layers.append(nn.ModuleList([
-                PreNorm(dim, Attention(embed_dim=dim, num_heads=heads, dropout=dropout)),
-                PreNorm(dim, FeedForward(embed_dim=dim, hidden_dim=mlp_dim, act_dropout=dropout, final_dropout=dropout, activation=activation))
+                PreNorm(dim, Attention(embed_dim=dim, num_heads=heads, dropout=dropout), norm_type=norm_type),
+                PreNorm(dim, FeedForward(embed_dim=dim, hidden_dim=mlp_dim, act_dropout=dropout, final_dropout=dropout, activation=activation), norm_type=norm_type)
             ]))
             
     def forward(self, x):
@@ -133,8 +133,32 @@ class ViT(nn.Module):
 
 @register_model
 def vit_tiny(pretrained=False, **kwargs):
-    for a in kwargs:
-        print(a, kwargs[a])
     model = ViT(patch_size=16, dim=192, depth=12, heads=3, mlp_dim=192*4, **kwargs)
     model.default_cfg = _cfg()
     return model
+
+##### norm test
+@register_model
+def vit_tiny_simplermsnorm(pretrained=False, **kwargs):
+    model = ViT(patch_size=16, dim=192, depth=12, heads=3, mlp_dim=192*4, norm_type="simplermsnorm", **kwargs)
+    model.default_cfg = _cfg()
+    return model
+
+@register_model
+def vit_tiny_rmsnorm(pretrained=False, **kwargs):
+    model = ViT(patch_size=16, dim=192, depth=12, heads=3, mlp_dim=192*4, norm_type="rmsnorm", **kwargs)
+    model.default_cfg = _cfg()
+    return model
+
+@register_model
+def vit_tiny_gatedrmsnorm(pretrained=False, **kwargs):
+    model = ViT(patch_size=16, dim=192, depth=12, heads=3, mlp_dim=192*4, norm_type="gatedrmsnorm", **kwargs)
+    model.default_cfg = _cfg()
+    return model
+
+@register_model
+def vit_tiny_scalenorm(pretrained=False, **kwargs):
+    model = ViT(patch_size=16, dim=192, depth=12, heads=3, mlp_dim=192*4, norm_type="scalenorm", **kwargs)
+    model.default_cfg = _cfg()
+    return model
+##### norm test

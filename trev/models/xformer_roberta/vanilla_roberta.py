@@ -58,3 +58,27 @@ class RobertaModelVanilla(RobertaModel):
 def roberta_vanilla_tiny_architecture(args):
     roberta_tiny_architecture(args)
     args.causal = False
+
+@register_model_architecture("roberta_vanilla", "roberta_vanilla_tiny_simplermsnorm")
+def roberta_vanilla_tiny_architecture_simplermsnorm(args):
+    roberta_tiny_architecture(args)
+    args.causal = False
+    args.norm_type = "simplermsnorm"
+
+@register_model_architecture("roberta_vanilla", "roberta_vanilla_tiny_rmsnorm")
+def roberta_vanilla_tiny_architecture_rmsnorm(args):
+    roberta_tiny_architecture(args)
+    args.causal = False
+    args.norm_type = "rmsnorm"
+
+@register_model_architecture("roberta_vanilla", "roberta_vanilla_tiny_gatedrmsnorm")
+def roberta_vanilla_tiny_architecture_gatedrmsnorm(args):
+    roberta_tiny_architecture(args)
+    args.causal = False
+    args.norm_type = "gatedrmsnorm"
+
+@register_model_architecture("roberta_vanilla", "roberta_vanilla_tiny_scalenorm")
+def roberta_vanilla_tiny_architecture_scalenorm(args):
+    roberta_tiny_architecture(args)
+    args.causal = False
+    args.norm_type = "scalenorm"

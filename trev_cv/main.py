@@ -33,7 +33,7 @@ def get_args_parser():
     parser.add_argument('--fp32-resume', action='store_true', default=False)
     parser.add_argument('--batch-size', default=80, type=int)
     parser.add_argument('--epochs', default=300, type=int)
-    parser.add_argument('--config', required=True, type=str, help='config')
+    # parser.add_argument('--config', required=True, type=str, help='config')
 
     # Model parameters
     parser.add_argument('--model', default='pvt_small', type=str, metavar='MODEL',
@@ -157,7 +157,8 @@ def get_args_parser():
                         help='number of distributed processes')
     parser.add_argument('--dist_url', default='env://', help='url used to set up distributed training')
     
-    parser.add_argument('--change-head', default=False)
+    parser.add_argument('--test', action='store_true', default=False)
+
     return parser
 
 def main(args):
@@ -332,7 +333,12 @@ def main(args):
             set_training_mode=args.finetune == '',  # keep in eval mode during finetuning
             fp32=args.fp32_resume,
             dist=args.distributed,
+            test=args.test,
         )
+
+        # for test
+        if args.test:
+            break
 
         lr_scheduler.step(epoch)
         if args.output_dir and epoch % 5 == 0:
