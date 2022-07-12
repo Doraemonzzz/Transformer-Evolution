@@ -116,3 +116,10 @@ def vanilla_transformer_lm_scalenorm(args):
     base_lm_architecture(args)
     args.norm_type = "scalenorm"
 ##### norm test
+
+##### head test
+@register_model_architecture("vanilla_transformer", "vanilla_transformer_lm_one_head")
+def vanilla_transformer_lm_one_head(args):
+    base_lm_architecture(args)
+    args.decoder_attention_heads = 1
+##### head test

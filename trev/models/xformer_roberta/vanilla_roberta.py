@@ -55,30 +55,40 @@ class RobertaModelVanilla(RobertaModel):
         return cls(args, encoder)
 
 @register_model_architecture("roberta_vanilla", "roberta_vanilla_tiny")
-def roberta_vanilla_tiny_architecture(args):
+def roberta_vanilla_tiny(args):
     roberta_tiny_architecture(args)
     args.causal = False
 
+##### norm test
 @register_model_architecture("roberta_vanilla", "roberta_vanilla_tiny_simplermsnorm")
-def roberta_vanilla_tiny_architecture_simplermsnorm(args):
+def roberta_vanilla_tiny_simplermsnorm(args):
     roberta_tiny_architecture(args)
     args.causal = False
     args.norm_type = "simplermsnorm"
 
 @register_model_architecture("roberta_vanilla", "roberta_vanilla_tiny_rmsnorm")
-def roberta_vanilla_tiny_architecture_rmsnorm(args):
+def roberta_vanilla_tiny_rmsnorm(args):
     roberta_tiny_architecture(args)
     args.causal = False
     args.norm_type = "rmsnorm"
 
 @register_model_architecture("roberta_vanilla", "roberta_vanilla_tiny_gatedrmsnorm")
-def roberta_vanilla_tiny_architecture_gatedrmsnorm(args):
+def roberta_vanilla_tiny_gatedrmsnorm(args):
     roberta_tiny_architecture(args)
     args.causal = False
     args.norm_type = "gatedrmsnorm"
 
 @register_model_architecture("roberta_vanilla", "roberta_vanilla_tiny_scalenorm")
-def roberta_vanilla_tiny_architecture_scalenorm(args):
+def roberta_vanilla_tiny_scalenorm(args):
     roberta_tiny_architecture(args)
     args.causal = False
     args.norm_type = "scalenorm"
+##### norm test
+
+##### head test
+@register_model_architecture("roberta_vanilla", "roberta_vanilla_tiny_one_head")
+def roberta_vanilla_tiny_one_head(args):
+    roberta_tiny_architecture(args)
+    args.causal = False
+    args.encoder_attention_heads = 1
+##### head test

@@ -38,6 +38,7 @@ class VanillaAttention(nn.Module):
         logging.info(f"index {index}")
         logging.info(f"causal {causal}")
         logging.info(f"init_method {init_method}")
+        logging.info(f"num_heads {num_heads}")
 
     def forward(
         self,

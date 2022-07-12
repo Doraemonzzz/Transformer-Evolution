@@ -115,6 +115,7 @@ class ViT(nn.Module):
         print(f"ffn_type {ffn_type}")
         print(f"norm_type {norm_type}")
         print(f"activation {activation}")
+        print(f"num_heads {heads}")
 
     def forward(self, img):
         x = self.to_patch_embedding(img)
@@ -162,3 +163,11 @@ def vit_tiny_scalenorm(pretrained=False, **kwargs):
     model.default_cfg = _cfg()
     return model
 ##### norm test
+
+##### head test
+@register_model
+def vit_tiny_one_head(pretrained=False, **kwargs):
+    model = ViT(patch_size=16, dim=192, depth=12, heads=1, mlp_dim=192*4, **kwargs)
+    model.default_cfg = _cfg()
+    return model
+##### head test
