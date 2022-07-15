@@ -871,6 +871,9 @@ class Trainer(object):
                     metrics.log_scalar(
                         "gb_free", gb_free, priority=1500, round=1, weight=0
                     )
+                    metrics.log_scalar(
+                        "gb_used", gb_used, priority=1500, round=1, weight=0
+                    )
 
                 # log stats
                 logging_output = self._reduce_and_log_stats(

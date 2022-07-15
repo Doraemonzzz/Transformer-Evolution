@@ -401,6 +401,7 @@ def convert_namespace_to_omegaconf(args: Namespace) -> DictConfig:
 
         _set_legacy_defaults(cfg.criterion, CRITERION_REGISTRY[args.criterion])
         cfg.criterion._name = args.criterion
+    
 
     _utils.is_primitive_type = old_primitive
     OmegaConf.set_struct(cfg, True)

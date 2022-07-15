@@ -493,7 +493,6 @@ def cli_main(
 ) -> None:
     parser = options.get_training_parser()
     args = options.parse_args_and_arch(parser, modify_parser=modify_parser)
-
     cfg = convert_namespace_to_omegaconf(args)
 
     if cfg.common.use_plasma_view:

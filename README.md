@@ -63,9 +63,9 @@ pip install -e .
 
 - [ ] 尝试加入lra任务；
 - [ ] 完成Readme英文版；
-- [ ] 添加速度，内存测试；
-- [ ] 完成单头多头测试；
-- [ ] 完成norm测试；
+- [x] 添加速度，内存测试；
+- [x] 完成单头多头测试；
+- [x] 完成norm测试；
 - [ ] 完成performer, linear transformer测试；
 
 
@@ -91,6 +91,8 @@ RuntimeError: Expected object of scalar type Long but got scalar type Int for ar
 - [https://github.com/facebookresearch/fairseq](https://github.com/facebookresearch/fairseq)
 - [https://github.com/OpenNLPLab/Vicinity-Vision-Transformer](https://github.com/OpenNLPLab/Vicinity-Vision-Transformer)
 - [https://github.com/whai362/PVT](https://github.com/whai362/PVT)
+- [https://github.com/Oldpan/Pytorch-Memory-Utils](https://github.com/Oldpan/Pytorch-Memory-Utils)
+- [https://zhuanlan.zhihu.com/p/424512257](https://zhuanlan.zhihu.com/p/424512257)
 
 
 
