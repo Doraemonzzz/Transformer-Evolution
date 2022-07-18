@@ -1,1 +1,2 @@
 from .vanilla_transformer import VanillaTransformerEncoder, VanillaTransformerDecoder
+from .linear_transformer import LinearTransformerEncoder, LinearTransformerDecoder

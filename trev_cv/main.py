@@ -26,7 +26,8 @@ from utils.losses import DistillationLoss
 from utils.samplers import RASampler
 
 import utils.utils
-import model.xvit
+import model.vit
+import model.vit_linear
 
 def get_args_parser():
     parser = argparse.ArgumentParser('Trev_cv training and evaluation script', add_help=False)

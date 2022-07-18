@@ -11,6 +11,8 @@ POS_INFINITY = float('inf')
 def get_attn(attn_type):
     if attn_type == "vanilla":
         return VanillaAttention
+    elif attn_type == "linear":
+        return LinearAttention
     else:
         return VanillaAttention
 

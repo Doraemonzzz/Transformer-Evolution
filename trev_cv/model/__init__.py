@@ -1,1 +1,1 @@
-from .xvit import *
+from .model import *

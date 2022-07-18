@@ -32,6 +32,10 @@ from .ffn import VanillaFeedForward
 from .x_attention import VanillaAttention
 from .x_attention import VanillaTransformerEncoderLayer, VanillaTransformerDecoderLayer
 ##### vanilla attention
+##### linear attention
+from .x_attention import LinearAttention
+from .x_attention import LinearTransformerEncoderLayer, LinearTransformerDecoderLayer
+##### linear attention
 ########## attention
 
 from .adaptive_input import AdaptiveInput

@@ -39,6 +39,8 @@ class Transformer(nn.Module):
         ffn_type="vanilla",
         norm_type="layernorm",
         activation="gelu",
+        # linear
+        act_fun="relu",
     ):
         super().__init__()
         self.layers = nn.ModuleList([])
@@ -49,6 +51,23 @@ class Transformer(nn.Module):
                 PreNorm(dim, Attention(embed_dim=dim, num_heads=heads, dropout=dropout), norm_type=norm_type),
                 PreNorm(dim, FeedForward(embed_dim=dim, hidden_dim=mlp_dim, act_dropout=dropout, final_dropout=dropout, activation=activation), norm_type=norm_type)
             ]))
+
+    def get_attention(
+        self, 
+        attn_type, 
+        embed_dim,
+        num_heads,
+        dropout,
+        act_fun,
+    ):
+        Attention = get_attn(attn_type)
+        if attn_type == "vanilla":
+            return Attention(embed_dim=dim, num_heads=heads, dropout=dropout)
+        elif attn_type == "linear":
+            return Attention(embed_dim=dim, num_heads=heads, dropout=dropout, act_fun=act_fun)
+        else:
+            return Attention(embed_dim=dim, num_heads=heads, dropout=dropout)
+        
             
     def forward(self, x):
         for attn, ff in self.layers:
@@ -74,6 +93,8 @@ class ViT(nn.Module):
         ffn_type="vanilla",
         norm_type="layernorm",
         activation="gelu",
+        # linear
+        act_fun="relu",
     ):
         super().__init__()
         image_height, image_width = pair(image_size)
@@ -102,6 +123,7 @@ class ViT(nn.Module):
             ffn_type=ffn_type,
             norm_type=norm_type,
             activation=activation,
+            act_fun=act_fun,
         )
 
         self.to_latent = nn.Identity()
@@ -116,6 +138,7 @@ class ViT(nn.Module):
         print(f"norm_type {norm_type}")
         print(f"activation {activation}")
         print(f"num_heads {heads}")
+        print(f"act_fun {act_fun}")
 
     def forward(self, img):
         x = self.to_patch_embedding(img)
@@ -131,43 +154,3 @@ class ViT(nn.Module):
         x = self.to_latent(x)
 
         return self.mlp_head(x)
-
-@register_model
-def vit_tiny(pretrained=False, **kwargs):
-    model = ViT(patch_size=16, dim=192, depth=12, heads=3, mlp_dim=192*4, **kwargs)
-    model.default_cfg = _cfg()
-    return model
-
-##### norm test
-@register_model
-def vit_tiny_simplermsnorm(pretrained=False, **kwargs):
-    model = ViT(patch_size=16, dim=192, depth=12, heads=3, mlp_dim=192*4, norm_type="simplermsnorm", **kwargs)
-    model.default_cfg = _cfg()
-    return model
-
-@register_model
-def vit_tiny_rmsnorm(pretrained=False, **kwargs):
-    model = ViT(patch_size=16, dim=192, depth=12, heads=3, mlp_dim=192*4, norm_type="rmsnorm", **kwargs)
-    model.default_cfg = _cfg()
-    return model
-
-@register_model
-def vit_tiny_gatedrmsnorm(pretrained=False, **kwargs):
-    model = ViT(patch_size=16, dim=192, depth=12, heads=3, mlp_dim=192*4, norm_type="gatedrmsnorm", **kwargs)
-    model.default_cfg = _cfg()
-    return model
-
-@register_model
-def vit_tiny_scalenorm(pretrained=False, **kwargs):
-    model = ViT(patch_size=16, dim=192, depth=12, heads=3, mlp_dim=192*4, norm_type="scalenorm", **kwargs)
-    model.default_cfg = _cfg()
-    return model
-##### norm test
-
-##### head test
-@register_model
-def vit_tiny_one_head(pretrained=False, **kwargs):
-    model = ViT(patch_size=16, dim=192, depth=12, heads=1, mlp_dim=192*4, **kwargs)
-    model.default_cfg = _cfg()
-    return model
-##### head test

@@ -12,15 +12,10 @@ from typing import Dict, Optional, Tuple
 import tacos.attention as attn
 from trev import utils
 from trev.incremental_decoding_utils import with_incremental_state
-from ..utils import get_init_function
+from ..utils import get_init_function, get_activation_fn
 
 @with_incremental_state
-class VanillaAttention(nn.Module):
-    """Multi-headed attention.
-
-    See "Attention Is All You Need" for more details.
-    """
-
+class LinearAttention(nn.Module):
     def __init__(
         self,
         embed_dim,
@@ -29,16 +24,18 @@ class VanillaAttention(nn.Module):
         dropout=0.0,
         index=0,
         init_method="default",
+        act_fun="1+elu",
     ):
         super().__init__()
         self.index = index
-        self.attn = attn.VanillaAttention(embed_dim, num_heads, causal, dropout)
+        self.attn = attn.LinearAttention(embed_dim, num_heads, causal=causal, dropout=dropout, act_fun=act_fun)
         # init
         self.apply(get_init_function(init_method))
         logging.info(f"index {index}")
         logging.info(f"causal {causal}")
         logging.info(f"init_method {init_method}")
         logging.info(f"num_heads {num_heads}")
+        logging.info(f"act_fun {act_fun}")
 
     def forward(
         self,
