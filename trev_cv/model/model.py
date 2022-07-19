@@ -44,19 +44,19 @@ class Transformer(nn.Module):
     ):
         super().__init__()
         self.layers = nn.ModuleList([])
-        Attention = get_attn(attn_type)
+        Attention = self.get_attention(attn_type, dim, heads, dropout, act_fun)
         FeedForward = get_ffn(ffn_type)
         for _ in range(depth):
             self.layers.append(nn.ModuleList([
-                PreNorm(dim, Attention(embed_dim=dim, num_heads=heads, dropout=dropout), norm_type=norm_type),
+                PreNorm(dim, Attention, norm_type=norm_type),
                 PreNorm(dim, FeedForward(embed_dim=dim, hidden_dim=mlp_dim, act_dropout=dropout, final_dropout=dropout, activation=activation), norm_type=norm_type)
             ]))
 
     def get_attention(
         self, 
         attn_type, 
-        embed_dim,
-        num_heads,
+        dim,
+        heads,
         dropout,
         act_fun,
     ):
