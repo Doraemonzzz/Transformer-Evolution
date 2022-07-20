@@ -13,6 +13,10 @@ def get_attn(attn_type):
         return VanillaAttention
     elif attn_type == "linear":
         return LinearAttention
+    elif attn_type == "performer":
+        return PerformerAttention
+    elif attn_type == "rfa":
+        return RandomFeatureAttention
     else:
         return VanillaAttention
 

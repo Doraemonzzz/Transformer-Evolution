@@ -3,3 +3,9 @@ from .vanilla_attention_layer import VanillaTransformerEncoderLayer, VanillaTran
 
 from .linear_attention import LinearAttention
 from .linear_attention_layer import LinearTransformerEncoderLayer, LinearTransformerDecoderLayer
+
+from .performer_attention import PerformerAttention
+from .performer_attention_layer import PerformerEncoderLayer, PerformerDecoderLayer
+
+from .random_feature_attention import RandomFeatureAttention
+from .random_feature_attention_layer import RFAEncoderLayer, RFADecoderLayer

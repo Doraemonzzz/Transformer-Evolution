@@ -28,6 +28,8 @@ from utils.samplers import RASampler
 import utils.utils
 import model.vit
 import model.vit_linear
+import model.vit_performer
+import model.vit_rfa
 
 def get_args_parser():
     parser = argparse.ArgumentParser('Trev_cv training and evaluation script', add_help=False)

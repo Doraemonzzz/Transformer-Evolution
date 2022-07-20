@@ -41,10 +41,12 @@ class Transformer(nn.Module):
         activation="gelu",
         # linear
         act_fun="relu",
+        # performer, rfa
+        proj_dim=64,
     ):
         super().__init__()
         self.layers = nn.ModuleList([])
-        Attention = self.get_attention(attn_type, dim, heads, dropout, act_fun)
+        Attention = self.get_attention(attn_type, dim, heads, dropout, act_fun, proj_dim)
         FeedForward = get_ffn(ffn_type)
         for _ in range(depth):
             self.layers.append(nn.ModuleList([
@@ -59,16 +61,18 @@ class Transformer(nn.Module):
         heads,
         dropout,
         act_fun,
+        proj_dim,
     ):
         Attention = get_attn(attn_type)
         if attn_type == "vanilla":
             return Attention(embed_dim=dim, num_heads=heads, dropout=dropout)
         elif attn_type == "linear":
             return Attention(embed_dim=dim, num_heads=heads, dropout=dropout, act_fun=act_fun)
+        elif attn_type == "performer" or attn_type == "rfa":
+            return Attention(embed_dim=dim, num_heads=heads, proj_dim=proj_dim, dropout=dropout)
         else:
             return Attention(embed_dim=dim, num_heads=heads, dropout=dropout)
         
-            
     def forward(self, x):
         for attn, ff in self.layers:
             x = attn(x) + x
@@ -95,6 +99,8 @@ class ViT(nn.Module):
         activation="gelu",
         # linear
         act_fun="relu",
+        # performer, rfa
+        proj_dim=64,
     ):
         super().__init__()
         image_height, image_width = pair(image_size)
@@ -124,6 +130,7 @@ class ViT(nn.Module):
             norm_type=norm_type,
             activation=activation,
             act_fun=act_fun,
+            proj_dim=proj_dim,
         )
 
         self.to_latent = nn.Identity()
@@ -139,6 +146,7 @@ class ViT(nn.Module):
         print(f"activation {activation}")
         print(f"num_heads {heads}")
         print(f"act_fun {act_fun}")
+        print(f"proj_dim {proj_dim}")
 
     def forward(self, img):
         x = self.to_patch_embedding(img)
@@ -149,7 +157,7 @@ class ViT(nn.Module):
 
         x = self.transformer(x)
 
-        x = x.mean(dim = 1)
+        x = x.mean(dim=1)
 
         x = self.to_latent(x)
 

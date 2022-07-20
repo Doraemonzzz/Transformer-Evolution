@@ -36,6 +36,14 @@ from .x_attention import VanillaTransformerEncoderLayer, VanillaTransformerDecod
 from .x_attention import LinearAttention
 from .x_attention import LinearTransformerEncoderLayer, LinearTransformerDecoderLayer
 ##### linear attention
+##### performer
+from .x_attention import PerformerAttention
+from .x_attention import PerformerEncoderLayer, PerformerDecoderLayer
+##### performer
+##### rfa
+from .x_attention import RandomFeatureAttention
+from .x_attention import RFAEncoderLayer, RFADecoderLayer
+##### rfa
 ########## attention
 
 from .adaptive_input import AdaptiveInput
