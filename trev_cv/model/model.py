@@ -46,13 +46,27 @@ class Transformer(nn.Module):
     ):
         super().__init__()
         self.layers = nn.ModuleList([])
-        Attention = self.get_attention(attn_type, dim, heads, dropout, act_fun, proj_dim)
-        FeedForward = get_ffn(ffn_type)
         for _ in range(depth):
+            Attention = self.get_attention(attn_type, dim, heads, dropout, act_fun, proj_dim)
+            FeedForward = self.get_ffn(ffn_type, dim, mlp_dim, dropout, activation)
             self.layers.append(nn.ModuleList([
                 PreNorm(dim, Attention, norm_type=norm_type),
-                PreNorm(dim, FeedForward(embed_dim=dim, hidden_dim=mlp_dim, act_dropout=dropout, final_dropout=dropout, activation=activation), norm_type=norm_type)
+                PreNorm(dim, FeedForward, norm_type=norm_type)
             ]))
+            
+    def get_ffn(
+        self, 
+        ffn_type,
+        dim,
+        mlp_dim,
+        dropout,
+        activation,
+    ):
+        FeedForward = get_ffn(ffn_type)
+        if ffn_type == "vanilla":
+            return FeedForward(embed_dim=dim, hidden_dim=mlp_dim, act_dropout=dropout, final_dropout=dropout, activation=activation)
+        else:
+            return FeedForward(embed_dim=dim, hidden_dim=mlp_dim, act_dropout=dropout, final_dropout=dropout, activation=activation)
 
     def get_attention(
         self, 
