@@ -123,3 +123,41 @@ def vanilla_transformer_lm_one_head(args):
     base_lm_architecture(args)
     args.decoder_attention_heads = 1
 ##### head test
+
+##### rope
+@register_model_architecture("vanilla_transformer", "vanilla_transformer_lm_rope_default")
+def vanilla_transformer_lm_rope_default(args):
+    base_lm_architecture(args)
+    kwargs = {}
+    kwargs["de_rpe_type"] = "rope"
+    kwargs["theta_type"] = "default"
+    kwargs["learned"] = False
+    args.kwargs = kwargs
+    
+@register_model_architecture("vanilla_transformer", "vanilla_transformer_lm_rope_default_learned")
+def vanilla_transformer_lm_rope_default_learned(args):
+    base_lm_architecture(args)
+    kwargs = {}
+    kwargs["de_rpe_type"] = "rope"
+    kwargs["theta_type"] = "default"
+    kwargs["learned"] = True
+    args.kwargs = kwargs
+    
+@register_model_architecture("vanilla_transformer", "vanilla_transformer_lm_rope_random")
+def vanilla_transformer_lm_rope_random(args):
+    base_lm_architecture(args)
+    kwargs = {}
+    kwargs["de_rpe_type"] = "rope"
+    kwargs["theta_type"] = "random"
+    kwargs["learned"] = False
+    args.kwargs = kwargs
+    
+@register_model_architecture("vanilla_transformer", "vanilla_transformer_lm_rope_random_learned")
+def vanilla_transformer_lm_rope_random_learned(args):
+    base_lm_architecture(args)
+    kwargs = {}
+    kwargs["de_rpe_type"] = "rope"
+    kwargs["theta_type"] = "random"
+    kwargs["learned"] = True
+    args.kwargs = kwargs
+##### rope

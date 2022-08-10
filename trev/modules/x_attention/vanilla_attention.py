@@ -33,14 +33,21 @@ class VanillaAttention(nn.Module):
     ):
         super().__init__()
         self.index = index
-        self.attn = attn.VanillaAttention(embed_dim, num_heads, causal, dropout)
+        self.attn = attn.VanillaAttention(embed_dim, num_heads, causal, dropout, **kwargs)
         # init
         self.apply(get_init_function(init_method))
+        
+        ##### basic info
         logging.info(f"index {index}")
         logging.info(f"causal {causal}")
         logging.info(f"init_method {init_method}")
         logging.info(f"num_heads {num_heads}")
-
+        ##### rpe
+        # rope
+        logging.info(f"de_rpe_type {kwargs.get('de_rpe_type', 'none')}")
+        logging.info(f"theta_type {kwargs.get('theta_type', 'default')}")
+        logging.info(f"learned {kwargs.get('learned', False)}")
+        
     def forward(
         self,
         x,

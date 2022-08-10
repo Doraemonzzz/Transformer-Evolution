@@ -52,6 +52,7 @@ class VanillaTransformerEncoderLayer(nn.Module):
         logging.info(f"norm_type {self.norm_type}")
 
     def build_self_attention(self, embed_dim, args):
+        kwargs = getattr(args, "kwargs", {})
         return VanillaAttention(
             embed_dim=embed_dim,
             num_heads=args.encoder_attention_heads,
@@ -59,6 +60,7 @@ class VanillaTransformerEncoderLayer(nn.Module):
             dropout=args.attention_dropout,
             index=args.index,
             init_method=getattr(args, "init_method", "default"),
+            **kwargs,
         )
 
     def upgrade_state_dict_named(self, state_dict, name):
@@ -140,6 +142,7 @@ class VanillaTransformerDecoderLayer(nn.Module):
     def build_self_attention(
         self, embed_dim, args,
     ):
+        kwargs = getattr(args, "kwargs", {})
         return VanillaAttention(
             embed_dim=embed_dim,
             num_heads=args.decoder_attention_heads,
@@ -147,6 +150,7 @@ class VanillaTransformerDecoderLayer(nn.Module):
             dropout=args.attention_dropout,
             index=args.index,
             init_method=getattr(args, "init_method", "default"),
+            **kwargs,
         )
 
     def forward_pre_norm(self, x, mask=None):
