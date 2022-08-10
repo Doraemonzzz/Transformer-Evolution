@@ -92,3 +92,45 @@ def roberta_vanilla_tiny_one_head(args):
     args.causal = False
     args.encoder_attention_heads = 1
 ##### head test
+
+##### rope
+@register_model_architecture("roberta_vanilla", "roberta_vanilla_tiny_rope_default_rope_default")
+def roberta_vanilla_tiny_rope_default_rope_default(args):
+    roberta_tiny_architecture(args)
+    args.causal = False
+    kwargs = {}
+    kwargs["de_rpe_type"] = "rope"
+    kwargs["theta_type"] = "default"
+    kwargs["learned"] = False
+    args.kwargs = kwargs
+    
+@register_model_architecture("roberta_vanilla", "roberta_vanilla_tiny_rope_default_learned")
+def roberta_vanilla_tiny_rope_default_learned(args):
+    roberta_tiny_architecture(args)
+    args.causal = False
+    kwargs = {}
+    kwargs["de_rpe_type"] = "rope"
+    kwargs["theta_type"] = "default"
+    kwargs["learned"] = True
+    args.kwargs = kwargs
+    
+@register_model_architecture("roberta_vanilla", "roberta_vanilla_tiny_rope_random")
+def roberta_vanilla_tiny_rope_random(args):
+    roberta_tiny_architecture(args)
+    args.causal = False
+    kwargs = {}
+    kwargs["de_rpe_type"] = "rope"
+    kwargs["theta_type"] = "random"
+    kwargs["learned"] = False
+    args.kwargs = kwargs
+    
+@register_model_architecture("roberta_vanilla", "roberta_vanilla_tiny_rope_random_learned")
+def roberta_vanilla_tiny_rope_random_learned(args):
+    roberta_tiny_architecture(args)
+    args.causal = False
+    kwargs = {}
+    kwargs["de_rpe_type"] = "rope"
+    kwargs["theta_type"] = "random"
+    kwargs["learned"] = True
+    args.kwargs = kwargs
+##### rope
