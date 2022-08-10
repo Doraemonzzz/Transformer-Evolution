@@ -42,3 +42,53 @@ def vit_tiny_one_head(pretrained=False, **kwargs):
     model.default_cfg = _cfg()
     return model
 ##### head test
+
+########## de rpe test
+@register_model
+def vit_tiny_rope_default(pretrained=False, **kwargs):
+    kwargs["de_rpe_type"] = "rope"
+    kwargs["theta_type"] = "default"
+    kwargs["learned"] = False
+    print(f"de_rpe_type {kwargs['de_rpe_type']}")
+    print(f"theta_type {kwargs['theta_type']}")
+    print(f"learned {kwargs['learned']}")
+    model = ViT(patch_size=16, dim=192, depth=12, heads=3, mlp_dim=192*4, **kwargs)
+    model.default_cfg = _cfg()
+    return model
+
+@register_model
+def vit_tiny_rope_default_learned(pretrained=False, **kwargs):
+    kwargs["de_rpe_type"] = "rope"
+    kwargs["theta_type"] = "default"
+    kwargs["learned"] = True
+    print(f"de_rpe_type {kwargs['de_rpe_type']}")
+    print(f"theta_type {kwargs['theta_type']}")
+    print(f"learned {kwargs['learned']}")
+    model = ViT(patch_size=16, dim=192, depth=12, heads=3, mlp_dim=192*4, **kwargs)
+    model.default_cfg = _cfg()
+    return model
+
+@register_model
+def vit_tiny_rope_random(pretrained=False, **kwargs):
+    kwargs["de_rpe_type"] = "rope"
+    kwargs["theta_type"] = "random"
+    kwargs["learned"] = False
+    print(f"de_rpe_type {kwargs['de_rpe_type']}")
+    print(f"theta_type {kwargs['theta_type']}")
+    print(f"learned {kwargs['learned']}")
+    model = ViT(patch_size=16, dim=192, depth=12, heads=3, mlp_dim=192*4, **kwargs)
+    model.default_cfg = _cfg()
+    return model
+
+@register_model
+def vit_tiny_rope_random_learned(pretrained=False, **kwargs):
+    kwargs["de_rpe_type"] = "rope"
+    kwargs["theta_type"] = "random"
+    kwargs["learned"] = True
+    print(f"de_rpe_type {kwargs['de_rpe_type']}")
+    print(f"theta_type {kwargs['theta_type']}")
+    print(f"learned {kwargs['learned']}")
+    model = ViT(patch_size=16, dim=192, depth=12, heads=3, mlp_dim=192*4, **kwargs)
+    model.default_cfg = _cfg()
+    return model
+########## de rpe test

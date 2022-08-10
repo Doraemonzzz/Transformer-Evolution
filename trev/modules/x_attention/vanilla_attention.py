@@ -29,6 +29,7 @@ class VanillaAttention(nn.Module):
         dropout=0.0,
         index=0,
         init_method="default",
+        **kwargs,
     ):
         super().__init__()
         self.index = index

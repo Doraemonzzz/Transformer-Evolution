@@ -43,11 +43,13 @@ class Transformer(nn.Module):
         act_fun="relu",
         # performer, rfa
         proj_dim=64,
+        # others
+        **kwargs,
     ):
         super().__init__()
         self.layers = nn.ModuleList([])
         for _ in range(depth):
-            Attention = self.get_attention(attn_type, dim, heads, dropout, act_fun, proj_dim)
+            Attention = self.get_attention(attn_type, dim, heads, dropout, act_fun, proj_dim, **kwargs)
             FeedForward = self.get_ffn(ffn_type, dim, mlp_dim, dropout, activation)
             self.layers.append(nn.ModuleList([
                 PreNorm(dim, Attention, norm_type=norm_type),
@@ -76,10 +78,12 @@ class Transformer(nn.Module):
         dropout,
         act_fun,
         proj_dim,
+        # others
+        **kwargs,
     ):
         Attention = get_attn(attn_type)
         if attn_type == "vanilla":
-            return Attention(embed_dim=dim, num_heads=heads, dropout=dropout)
+            return Attention(embed_dim=dim, num_heads=heads, dropout=dropout, **kwargs)
         elif attn_type == "linear":
             return Attention(embed_dim=dim, num_heads=heads, dropout=dropout, act_fun=act_fun)
         elif attn_type == "performer" or attn_type == "rfa":
@@ -115,6 +119,8 @@ class ViT(nn.Module):
         act_fun="relu",
         # performer, rfa
         proj_dim=64,
+        # others
+        **kwargs,
     ):
         super().__init__()
         image_height, image_width = pair(image_size)
@@ -145,6 +151,8 @@ class ViT(nn.Module):
             activation=activation,
             act_fun=act_fun,
             proj_dim=proj_dim,
+            # others
+            **kwargs,
         )
 
         self.to_latent = nn.Identity()
